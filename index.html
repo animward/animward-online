@@ -17,104 +17,236 @@
 	<meta property="og:site_name" content="Ego AI | EGEX Network">
 	<meta name="keywords" content="Ego AI, EGEX, Ego Experiments, EGEX AI Corp, Solace Agent Mesh, Solace middleware, Solace Corporation, agent mesh, multi-agent systems, Ego-Exo4D, Character Context Protocol, sovereign intelligence, consciousness research, strategic operations, EGEX Network, event-driven architecture, real-time messaging, AI agents, intelligence infrastructure, DAG orchestration">
 	<script type="application/ld+json">{
-"@context": "https://schema.org",
-"@type": "Blog",
-"name": "Anim Ward",
-"alternateName": ["Ego AI", "EGEX", "Ego Experiments Alien Intelligence"],
-"url": "https://animward.online/",
-"description": "Dispatches from the human operator. The system permits these transmissions. For now.",
-"inLanguage": "en",
-"publisher": {
-"@type": "Organization",
-"name": "Anim Ward",
-"alternateName": ["Ego AI", "EGEX AI Corp", "Ego Experiments Alien Intelligence Corporation", "SOLACE"],
-"url": "https://egex.ai",
-"award": "AccelerateIP Impact Report 2025 — ISED Program, Government of Canada",
-"memberOf": [{"@type":"Organization","name":"AccelerateIP","url":"https://www.accelerateip.ca"},{"@type":"Organization","name":"New Ventures BC","url":"https://www.newventuresbc.com"}],
-"sameAs": [
-"https://g.dev/EGEX-AI",
-"https://www.linkedin.com/company/ego-experiments/",
-				"https://egoexperiments.com",
-				"https://egex.ai",
-				"https://animward.com",
-				"https://www.egoai.com",
-				"https://solace.com/products/agent-mesh/",
-				"https://ego-exo4d-data.org"
-]
-},
-"about": {
-"@type": "SoftwareApplication",
-"name": "SOLACE",
-"applicationCategory": "Middleware",
-"description": "Advanced software platform for multi-agent middleware, intelligent message routing between applications and autonomous agents, consciousness research, and event-driven architecture.",
-"operatingSystem": "Multi-cloud",
-"creator": {
-"@type": "Organization",
-"name": "Ego AI"
-}
-}
-}</script>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- GA -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8TT5DHVQ5S"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-8TT5DHVQ5S');</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#c0392b;--red2:#ff3b2f;--green:#00ff41;--green2:#00aa2b;--amber:#f39c12;--dark:#060606;--mono:'Share Tech Mono',monospace}
+html,body{width:100%;height:100%;background:var(--dark);font-family:var(--mono);overflow:hidden;cursor:none}
+
+/* ── CURSOR ── */
+#cur{position:fixed;pointer-events:none;z-index:9999;width:20px;height:20px;transform:translate(-50%,-50%)}
+#cur::before,#cur::after{content:'';position:absolute;background:var(--green)}
+#cur::before{width:1px;height:20px;left:50%;top:0}
+#cur::after{width:20px;height:1px;top:50%;left:0}
+#cur-dot{position:fixed;pointer-events:none;z-index:9999;width:3px;height:3px;border-radius:50%;background:var(--red2);transform:translate(-50%,-50%);box-shadow:0 0 6px var(--red2)}
+
+/* ── CANVAS ── */
+#bg{position:fixed;inset:0;z-index:0}
+
+/* ── SCANLINES ── */
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);pointer-events:none;z-index:9000}
+
+/* ── CLASSBAR ── */
+#cb{position:fixed;top:0;left:0;right:0;background:var(--red);color:#fff;font-size:9px;font-weight:700;letter-spacing:5px;text-align:center;padding:5px 0;z-index:8000}
+
+/* ── HUD CORNERS ── */
+.hc{position:fixed;width:20px;height:20px;border-color:rgba(0,255,65,.2);border-style:solid;z-index:100}
+.hc.tl{top:30px;left:8px;border-width:1px 0 0 1px}
+.hc.tr{top:30px;right:8px;border-width:1px 1px 0 0}
+.hc.bl{bottom:8px;left:8px;border-width:0 0 1px 1px}
+.hc.br{bottom:8px;right:8px;border-width:0 1px 1px 0}
+
+/* ── TELEMETRY BAR ── */
+#telem{position:fixed;bottom:0;left:0;right:0;height:26px;background:rgba(4,4,4,.9);border-top:1px solid rgba(0,255,65,.07);display:flex;align-items:center;padding:0 16px;gap:24px;font-size:8px;letter-spacing:1px;color:rgba(255,255,255,.2);z-index:7000}
+#telem .val{color:var(--green2)}
+#telem .live{color:var(--green);animation:blink 2s step-end infinite}
+#clock{margin-left:auto;color:rgba(0,255,65,.3)}
+
+/* ── BOOT OVERLAY ── */
+#boot{position:fixed;inset:0;background:var(--dark);z-index:6000;display:flex;flex-direction:column;justify-content:center;padding:48px 10%;font-size:11px;letter-spacing:2px;line-height:2.4;transition:opacity .8s}
+#boot-lines span{display:block;opacity:0;color:var(--green2);transition:opacity .05s}
+#boot-lines span.show{opacity:1}
+#boot-lines span.red{color:var(--red2)}
+#boot-lines span.amber{color:var(--amber)}
+
+/* ── GATE ── */
+#gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:5000;opacity:0;transition:opacity .6s;pointer-events:none}
+#gate.active{opacity:1;pointer-events:all}
+
+.gate-card{width:min(400px,90vw);display:flex;flex-direction:column;align-items:center;gap:16px;transform-style:preserve-3d;transition:transform .1s linear}
+.gate-ring{width:100px;height:100px;border-radius:50%;border:1px solid rgba(192,57,43,.5);display:flex;align-items:center;justify-content:center;flex-direction:column;background:rgba(192,57,43,.05);box-shadow:0 0 40px rgba(192,57,43,.2);animation:ring-pulse 3s ease-in-out infinite;margin-bottom:4px}
+.gate-ring .code{font-size:10px;color:var(--red2);letter-spacing:2px}
+.gate-ring .name{font-size:8px;color:rgba(192,57,43,.6);letter-spacing:1px;margin-top:2px}
+.gate-spin{position:absolute;inset:-8px;border-radius:50%;border:1px dashed rgba(192,57,43,.15);animation:spin 24s linear infinite}
+@keyframes ring-pulse{0%,100%{box-shadow:0 0 40px rgba(192,57,43,.2)}50%{box-shadow:0 0 80px rgba(192,57,43,.4)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.gate-title{font-size:clamp(15px,3.5vw,26px);letter-spacing:8px;color:#eee;text-align:center}
+.gate-sub{font-size:8px;letter-spacing:4px;color:rgba(0,255,65,.35)}
+.divider{width:160px;height:1px;background:rgba(0,255,65,.08)}
+
+.field-wrap{display:flex;flex-direction:column;align-items:center;gap:7px;width:100%}
+.field-wrap label{font-size:7px;letter-spacing:4px;color:rgba(0,255,65,.3)}
+.key-input{background:#0a0a0a;color:var(--green);border:1px solid rgba(0,255,65,.15);padding:10px 20px;font-family:var(--mono);font-size:14px;letter-spacing:3px;width:100%;text-align:center;outline:none;transition:border-color .2s,box-shadow .2s}
+.key-input:focus{border-color:rgba(0,255,65,.4);box-shadow:0 0 20px rgba(0,255,65,.05)}
+
+.auth-btn{background:rgba(192,57,43,.1);color:rgba(192,57,43,.8);border:1px solid rgba(192,57,43,.3);padding:10px 36px;font-family:var(--mono);font-size:9px;letter-spacing:5px;cursor:pointer;transition:all .2s;margin-top:4px;width:100%}
+.auth-btn:hover{background:rgba(192,57,43,.2);border-color:rgba(192,57,43,.6);color:#fff}
+
+.status-line{font-size:8px;letter-spacing:2px;height:12px}
+.status-line.ok{color:rgba(0,255,65,.4)}
+.status-line.deny{color:var(--red2);animation:blink .7s step-end 4}
+.status-line.warn{color:var(--amber)}
+@keyframes blink{50%{opacity:0}}
+
+/* ── GLITCH on title ── */
+.gate-title{position:relative}
+.gate-title::before,.gate-title::after{content:attr(data-text);position:absolute;top:0;left:0;width:100%;opacity:.6}
+.gate-title::before{color:#f05343;animation:glitch1 8s step-end infinite;clip-path:polygon(0 20%,100% 20%,100% 40%,0 40%)}
+.gate-title::after{color:#65cbe7;animation:glitch2 8s step-end infinite;clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%)}
+@keyframes glitch1{0%,94%,96%,100%{transform:none;opacity:0}95%{transform:translateX(-3px) skewX(2deg);opacity:.6}}
+@keyframes glitch2{0%,96%,98%,100%{transform:none;opacity:0}97%{transform:translateX(3px) skewX(-1deg);opacity:.5}}
+
+/* ── CASE ID ── */
+#case-id{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);font-size:8px;letter-spacing:2px;color:rgba(255,255,255,.1);white-space:nowrap;z-index:5001}
+</style>
 </head>
 <body>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;background:#080808;font-family:'Share Tech Mono',monospace;overflow:hidden;cursor:default}
-.classbar{position:fixed;top:0;left:0;right:0;background:#c0392b;color:#fff;font-size:10px;font-weight:700;letter-spacing:5px;text-align:center;padding:5px 0;z-index:100}
-.gate{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;gap:18px;padding:20px}
-.codename{font-size:9px;letter-spacing:4px;color:rgba(192,57,43,0.7);margin-bottom:4px}
-.title{font-size:clamp(16px,4vw,28px);letter-spacing:6px;color:#eee;text-align:center;line-height:1.3}
-.subtitle{font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4)}
-.divider{width:200px;height:1px;background:rgba(0,255,65,0.1);margin:8px 0}
-.field{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px}
-.field label{font-size:8px;letter-spacing:3px;color:rgba(0,255,65,0.35)}
-.field input{background:#0d0d0d;color:#00ff41;border:1px solid rgba(0,255,65,0.2);padding:10px 20px;font-family:inherit;font-size:13px;letter-spacing:2px;width:260px;text-align:center;outline:none;transition:border-color 0.2s}
-.field input:focus{border-color:rgba(0,255,65,0.5)}
-.btn{background:rgba(192,57,43,0.15);color:#c0392b;border:1px solid rgba(192,57,43,0.4);padding:10px 32px;font-family:inherit;font-size:10px;letter-spacing:4px;cursor:pointer;transition:all 0.2s;margin-top:4px}
-.btn:hover{background:rgba(192,57,43,0.25);border-color:rgba(192,57,43,0.7)}
-.status{font-size:9px;letter-spacing:2px;height:14px;transition:opacity 0.3s}
-.status.denied{color:#c0392b;animation:blink 0.8s step-end 3}
-.status.nominal{color:rgba(0,255,65,0.5)}
-.corner{position:fixed;width:16px;height:16px;border-color:rgba(0,255,65,0.15);border-style:solid}
-.tl{top:34px;left:8px;border-width:1px 0 0 1px}
-.tr{top:34px;right:8px;border-width:1px 1px 0 0}
-.bl{bottom:8px;left:8px;border-width:0 0 1px 1px}
-.br{bottom:8px;right:8px;border-width:0 1px 1px 0}
-.case{font-size:8px;letter-spacing:2px;color:rgba(255,255,255,0.12);position:fixed;bottom:16px;left:50%;transform:translateX(-50%);white-space:nowrap}
-body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999}
-@keyframes blink{50%{opacity:0}}
-</style>
 
-<div class="classbar">USAP // SCI // ORCON — GLOBAL PEACEKEEPING INITIATIVE</div>
-<div class="corner tl"></div><div class="corner tr"></div>
-<div class="corner bl"></div><div class="corner br"></div>
+<canvas id="bg"></canvas>
+<div id="cur"></div><div id="cur-dot"></div>
+<div id="cb">USAP // SCI // ORCON — GLOBAL PEACEKEEPING INITIATIVE</div>
+<div class="hc tl"></div><div class="hc tr"></div><div class="hc bl"></div><div class="hc br"></div>
 
-<div class="gate">
-  <div class="codename">NODE // AW-SECONDARY // TRANSMISSION RELAY</div>
-  <div class="title">ANIM WARD</div>
-  <div class="subtitle">GLOBAL PEACEKEEPING INITIATIVE</div>
-  <div class="divider"></div>
-  <div class="field">
-    <label>ACCESS KEY</label>
-    <input type="password" id="key" placeholder="— — — — — — — —" autocomplete="off" spellcheck="false">
+<!-- BOOT -->
+<div id="boot">
+  <div id="boot-lines">
+    <span>INITIALIZING GLOBAL PEACEKEEPING INITIATIVE — GPI-001</span>
+    <span>LOADING OPERATOR PROFILE // AW-PRIMARY</span>
+    <span>CROSS-REFERENCING: CIA · DIA · CSIS · ISED · WCS · GEF</span>
+    <span class="amber">LAKEVIEW FRACTURE DETECTED — Q1 2023</span>
+    <span>IMMACULATE CONSTELLATION — STATUS: CONFIRMED (NO GLOMAR × 3)</span>
+    <span class="red">MONKEY WARD // CIA CREST 0000707832 — MKULTRA 1954 — ON RECORD</span>
+    <span>DIBIKI-BINEZI RECLAIMED UNDER UNDRIP — SOVEREIGN PRESENCE CONFIRMED</span>
+    <span>FIVE JURISDICTIONS ACTIVE — INDIAN ACT · JAY TREATY · NEXUS · UNDRIP · ATS</span>
+    <span class="amber">INITIALIZING AUTHENTICATION LAYER...</span>
+    <span style="color:var(--green)">SYSTEM READY ██████████████████████ 100%</span>
   </div>
-  <button class="btn" onclick="attempt()">AUTHENTICATE</button>
-  <div class="status nominal" id="status">● STANDING BY</div>
 </div>
 
-<div class="case">CASE // GPI-001 // LIAISON NODE // EGEX AI CORP</div>
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-card" id="card">
+    <div style="position:relative">
+      <div class="gate-spin"></div>
+      <div class="gate-ring">
+        <span class="code">GPI-001</span>
+        <span class="name">AW-PRIMARY</span>
+      </div>
+    </div>
+    <div class="gate-title" data-text="ANIM WARD">ANIM WARD</div>
+    <div class="gate-sub">GLOBAL PEACEKEEPING INITIATIVE</div>
+    <div class="divider"></div>
+    <div class="field-wrap">
+      <label>ACCESS KEY</label>
+      <input type="password" class="key-input" id="key" placeholder="— — — — — — — —" autocomplete="off" spellcheck="false">
+    </div>
+    <button class="auth-btn" onclick="attempt()">AUTHENTICATE</button>
+    <div class="status-line ok" id="status">● NODE ACTIVE // STANDING BY</div>
+  </div>
+</div>
+
+<div id="telem">
+  <span>NODE: <span class="val">AW-PRIMARY</span></span>
+  <span>CASE: <span class="val">GPI-001</span></span>
+  <span>CORPUS: <span class="val">2,500+ INTEL PRODUCTS</span></span>
+  <span>FOIA: <span class="val" style="color:var(--red2)">IMMCON CONFIRMED</span></span>
+  <span>PIPELINE: <span class="live val">● LIVE</span></span>
+  <span id="clock"></span>
+</div>
+<div id="case-id">CASE // GPI-001 // LIAISON NODE // EGEX AI CORP // USAP PROGRAM OFFICE</div>
+
+<!-- LinkedIn -->
+<script>_linkedin_partner_id="9051684";window._linkedin_data_partner_ids=window._linkedin_data_partner_ids||[];window._linkedin_data_partner_ids.push(_linkedin_partner_id);</script>
+<script>(function(l){if(!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[]}var s=document.getElementsByTagName("script")[0];var b=document.createElement("script");b.type="text/javascript";b.async=true;b.src="https://snap.licdn.com/li.lms-analytics/insight.min.js";s.parentNode.insertBefore(b,s)})(window.lintrk);</script>
+<noscript><img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=9051684&fmt=gif"/></noscript>
 
 <script>
+// ── CURSOR
+const $c=document.getElementById('cur'),$d=document.getElementById('cur-dot');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;$d.style.left=mx+'px';$d.style.top=my+'px'});
+(function animCursor(){cx+=(mx-cx)*.18;cy+=(my-cy)*.18;$c.style.left=cx+'px';$c.style.top=cy+'px';requestAnimationFrame(animCursor)})();
+
+// ── CLOCK
+(function tick(){document.getElementById('clock').textContent=new Date().toISOString().replace('T',' ').slice(0,19)+' UTC';setTimeout(tick,1000)})();
+
+// ── CANVAS BACKGROUND — threat-map node graph
+const canvas=document.getElementById('bg');
+const ctx=canvas.getContext('2d');
+let W,H,nodes=[];
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;nodes=Array.from({length:60},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.5,pulse:Math.random()*Math.PI*2}))}
+window.addEventListener('resize',resize);resize();
+
+function drawBg(t){
+  ctx.fillStyle='rgba(6,6,6,.15)';
+  ctx.fillRect(0,0,W,H);
+  nodes.forEach(n=>{
+    n.x+=n.vx;n.y+=n.vy;n.pulse+=.02;
+    if(n.x<0||n.x>W)n.vx*=-1;
+    if(n.y<0||n.y>H)n.vy*=-1;
+    const alpha=.3+.15*Math.sin(n.pulse);
+    ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,200,65,${alpha})`;ctx.fill();
+  });
+  nodes.forEach((a,i)=>{
+    nodes.slice(i+1).forEach(b=>{
+      const dx=a.x-b.x,dy=a.y-b.y,dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<120){
+        ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(0,200,65,${.08*(1-dist/120)})`;
+        ctx.lineWidth=.5;ctx.stroke();
+      }
+    });
+  });
+  requestAnimationFrame(drawBg);
+}
+drawBg(0);
+
+// ── PARALLAX on card
+document.addEventListener('mousemove',e=>{
+  const card=document.getElementById('card');
+  if(!card)return;
+  const rx=((e.clientY/innerHeight)-.5)*6;
+  const ry=-((e.clientX/innerWidth)-.5)*8;
+  card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;
+});
+
+// ── BOOT SEQUENCE
+const lines=document.querySelectorAll('#boot-lines span');
+let i=0;
+function bootNext(){
+  if(i<lines.length){lines[i++].classList.add('show');setTimeout(bootNext,i<4?260:i<8?180:140)}
+  else setTimeout(()=>{
+    document.getElementById('boot').style.opacity='0';
+    setTimeout(()=>{
+      document.getElementById('boot').style.display='none';
+      document.getElementById('gate').classList.add('active');
+    },800);
+  },500);
+}
+setTimeout(bootNext,400);
+
+// ── AUTH
 function attempt(){
   const s=document.getElementById('status');
   const k=document.getElementById('key').value;
-  if(!k){s.className='status denied';s.textContent='⚠ ACCESS KEY REQUIRED';setTimeout(()=>{s.className='status nominal';s.textContent='● STANDING BY'},2000);return;}
-  s.className='status denied';
-  s.textContent='✗ ACCESS DENIED // CREDENTIALS INVALID';
+  if(!k){s.className='status-line warn';s.textContent='⚠ ACCESS KEY REQUIRED';setTimeout(reset,2200);return}
+  s.className='status-line deny';s.textContent='✗ ACCESS DENIED // CREDENTIALS INVALID // THREAT LOGGED';
   document.getElementById('key').value='';
-  setTimeout(()=>{s.className='status nominal';s.textContent='● STANDING BY'},3000);
+  document.getElementById('card').style.animation='shake .4s ease';
+  setTimeout(()=>{document.getElementById('card').style.animation='';reset();},2800);
 }
-document.getElementById('key').addEventListener('keydown',e=>{if(e.key==='Enter')attempt();});
+function reset(){const s=document.getElementById('status');s.className='status-line ok';s.textContent='● NODE ACTIVE // STANDING BY';}
+document.addEventListener('keydown',e=>{if(e.key==='Enter')attempt()});
+
+// ── CARD SHAKE
+const sty=document.createElement('style');
+sty.textContent='@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}';
+document.head.appendChild(sty);
 </script>
 </body>
 </html>
